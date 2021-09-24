@@ -22,19 +22,23 @@ jobs:
           iwr "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" -o "${Env:steamcmd_dir}steamcmd.zip"
           Expand-Archive "${Env:steamcmd_dir}steamcmd.zip" $Env:steamcmd_dir
 
-      - name: write steamcmd file
-        run: |
-          "// update_bannerlord.txt
-          //
-          @ShutdownOnFailedCommand 1 //set to 0 if updating multiple servers at once
-          @NoPromptForPassword 1
-          login anonymous
-          force_install_dir $Env:bannerlord_dir
-          app_update 261550 validate      //bannerlord steam app id 261550
-          quit" | out-file ${Env:steamcmd_dir}update_bannerlord.txt
+      # SteamCMD isn't reading scripts at the moment. Not sure why    
+      #- name: write steamcmd file
+      #  run: |
+      #    "// update_bannerlord.txt
+      #    //
+      #    @ShutdownOnFailedCommand 1 //set to 0 if updating multiple servers at once
+      #    @NoPromptForPassword 1
+      #    login anonymous
+      #    force_install_dir $Env:bannerlord_dir
+      #    app_update 261550 validate      //bannerlord steam app id 261550
+      #    quit" | out-file ${Env:steamcmd_dir}update_bannerlord.txt
 
       - name: install bannerlord
-        run: start "${Env:steamcmd_dir}steamcmd" -Args "+runscript ${Env:steamcmd_dir}update_bannerlord.txt" -wait
+        run: start ".\steamcmd" -workingdirectory ${env:steamcmd_dir} -Args "+login ${secrets:steam_user} ${secrets:steam_password} +force_install_dir ${env:bannerlord_dir} +app_update 261550 validate +quit" -wait
+
     
       - name: check bannerlord dir
-        run: ls ${Env:bannerlord_dir}steamapps\
+        run: |
+          ls ${Env:bannerlord_dir}steamapps\
+          
