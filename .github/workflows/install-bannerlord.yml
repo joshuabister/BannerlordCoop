@@ -19,8 +19,8 @@ jobs:
       - name: get steamcmd
         run: |
           md $Env:steamcmd_dir
-          iwr "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" -o "$(Env:steamcmd_dir)steamcmd.zip"
-          Expand-Archive "$(Env:steamcmd_dir)steamcmd.zip" $Env:steamcmd_dir
+          iwr "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" -o "${Env:steamcmd_dir}steamcmd.zip"
+          Expand-Archive "${Env:steamcmd_dir}steamcmd.zip" $Env:steamcmd_dir
 
       - name: write steamcmd file
         run: |
@@ -31,7 +31,7 @@ jobs:
           login anonymous
           force_install_dir $Env:bannerlord_dir
           app_update 261550 validate      //bannerlord steam app id 261550
-          quit" | out-file $(Env:steamcmd_dir)update_bannerlord.txt
+          quit" | out-file ${Env:steamcmd_dir}update_bannerlord.txt
 
       - name: install bannerlord
-        run: $(Env:steamcmd_dir)steamcmd +runscript "$(Env:steamcmd_dir)update_bannerlord.txt"
+        run: ${Env:steamcmd_dir}steamcmd +runscript "${Env:steamcmd_dir}update_bannerlord.txt"
