@@ -1,0 +1,37 @@
+# This is a basic workflow to help you get started with Actions
+
+name: .NETFramework
+on:
+    push:
+      branches: [ CI ]
+
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the development branch
+
+jobs:
+  Install-Bannerlord:
+    runs-on: windows-2019
+    env:
+      steamcmd_dir: C:\steamcmd\
+      bannerlord_dir: C:\bannerlord\
+    steps:
+      - name: get steamcmd
+        run: |
+          md $steamcmd_dir
+          iwr "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" -o "$(steamcmd_dir)steamcmd.zip"
+          Expand-Archive "$(steamcmd_dir)steamcmd.zip" $steamcmd_dir
+
+      - name: write steamcmd file
+        run: |
+          "// update_bannerlord.txt
+          //
+          @ShutdownOnFailedCommand 1 //set to 0 if updating multiple servers at once
+          @NoPromptForPassword 1
+          login anonymous
+          force_install_dir $bannerlord_dir
+          app_update 261550 validate      //bannerlord steam app id 261550
+          quit" | out-file $(steamcmd_dir)update_bannerlord.txt
+
+      - name: install bannerlord
+        run: $(steamcmd_dir)steamcmd +runscript "$(steamcmd_dir)update_bannerlord.txt"
