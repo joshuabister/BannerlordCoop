@@ -18,9 +18,9 @@ jobs:
     steps:
       - name: get steamcmd
         run: |
-          md $steamcmd_dir
-          iwr "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" -o "$(steamcmd_dir)steamcmd.zip"
-          Expand-Archive "$(steamcmd_dir)steamcmd.zip" $steamcmd_dir
+          md $env.steamcmd_dir
+          iwr "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" -o "$(env.steamcmd_dir)steamcmd.zip"
+          Expand-Archive "$(env.steamcmd_dir)steamcmd.zip" $env.steamcmd_dir
 
       - name: write steamcmd file
         run: |
@@ -29,9 +29,9 @@ jobs:
           @ShutdownOnFailedCommand 1 //set to 0 if updating multiple servers at once
           @NoPromptForPassword 1
           login anonymous
-          force_install_dir $bannerlord_dir
+          force_install_dir $env.bannerlord_dir
           app_update 261550 validate      //bannerlord steam app id 261550
-          quit" | out-file $(steamcmd_dir)update_bannerlord.txt
+          quit" | out-file $(env.steamcmd_dir)update_bannerlord.txt
 
       - name: install bannerlord
-        run: $(steamcmd_dir)steamcmd +runscript "$(steamcmd_dir)update_bannerlord.txt"
+        run: $(env.steamcmd_dir)steamcmd +runscript "$(env.steamcmd_dir)update_bannerlord.txt"
