@@ -35,3 +35,6 @@ jobs:
 
       - name: install bannerlord
         run: start "${Env:steamcmd_dir}steamcmd" -Args "+runscript ${Env:steamcmd_dir}update_bannerlord.txt" -wait
+    
+      - name: check bannerlord dir
+        run: ls ${Env:bannerlord_dir}
