@@ -34,4 +34,4 @@ jobs:
           quit" | out-file ${Env:steamcmd_dir}update_bannerlord.txt
 
       - name: install bannerlord
-        run: ${Env:steamcmd_dir}steamcmd +runscript "${Env:steamcmd_dir}update_bannerlord.txt"
+        run: start "${Env:steamcmd_dir}steamcmd +runscript ${Env:steamcmd_dir}update_bannerlord.txt"
