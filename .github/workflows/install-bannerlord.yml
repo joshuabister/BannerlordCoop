@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: get steamcmd
         run: |
-          md $env.steamcmd_dir
+          md $(env.steamcmd_dir)
           iwr "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" -o "$(env.steamcmd_dir)steamcmd.zip"
           Expand-Archive "$(env.steamcmd_dir)steamcmd.zip" $env.steamcmd_dir
 
