@@ -13,8 +13,8 @@ jobs:
   Install-Bannerlord:
     runs-on: windows-2019
     env:
-      steamcmd_dir: C:\steamcmd\
-      bannerlord_dir: C:\bannerlord\
+      steamcmd_dir: ~\Desktop\steamcmd\
+      bannerlord_dir: ~\Desktop\bannerlord\
     steps:
       - name: get steamcmd
         run: |
