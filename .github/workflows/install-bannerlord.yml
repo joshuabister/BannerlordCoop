@@ -33,6 +33,7 @@ jobs:
       #    force_install_dir $Env:bannerlord_dir
       #    app_update 261550 validate      //bannerlord steam app id 261550
       #    quit" | out-file ${Env:steamcmd_dir}update_bannerlord.txt
+      # yo github actions suck
 
       - name: install bannerlord
         env:
