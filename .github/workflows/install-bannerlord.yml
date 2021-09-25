@@ -39,7 +39,7 @@ jobs:
         env:
           steam_user: ${{ secrets.STEAM_USER }}
           steam_password: ${{ secrets.STEAM_PASSWORD }}
-        run: start ".\steamcmd" -workingdirectory ${env:steamcmd_dir} -Args "+@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login ${env:steam_user} ${env:steam_password} +force_install_dir ${env:bannerlord_dir} +app_update 261550 validate +quit" -wait
+        run: start ".\steamcmd" -workingdirectory ${env:steamcmd_dir} -Args "+@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login ${env:steam_user} `"${env:steam_password}`" +force_install_dir ${env:bannerlord_dir} +app_update 261550 validate +quit" -wait
             
       - name: check bannerlord dir
         run: |
