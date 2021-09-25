@@ -35,7 +35,7 @@ jobs:
       #    quit" | out-file ${Env:steamcmd_dir}update_bannerlord.txt
 
       - name: install bannerlord
-        run: start ".\steamcmd" -workingdirectory ${env:steamcmd_dir} -Args "+login ${secrets:steam_user} ${secrets:steam_password} +force_install_dir ${env:bannerlord_dir} +app_update 261550 validate +quit" -wait
+        run: start ".\steamcmd" -workingdirectory ${env:steamcmd_dir} -Args "+@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login ${secrets:steam_user} ${secrets:steam_password} +force_install_dir ${env:bannerlord_dir} +app_update 261550 validate +quit" -wait
 
     
       - name: check bannerlord dir
